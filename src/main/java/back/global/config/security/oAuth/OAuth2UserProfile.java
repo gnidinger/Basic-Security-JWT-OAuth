@@ -1,6 +1,6 @@
 package back.global.config.security.oAuth;
 
-import back.domain.member.entity.Member;
+import back.domain.user.entity.User;
 
 public class OAuth2UserProfile {
 
@@ -14,8 +14,8 @@ public class OAuth2UserProfile {
         this.oauthId = oauthId;
     }
 
-    public Member createOauth2Member() {
-        return Member.builder()
+    public User createOauth2User() {
+        return User.builder()
                 .userId(email) //이메일
                 .nickname(name) // 이름
                 .password(oauthId) // 고유값

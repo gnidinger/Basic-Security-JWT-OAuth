@@ -1,7 +1,7 @@
 package back.global.config.security.filter;
 
 import back.domain.refreshToken.exception.*;
-import back.global.config.security.userDetails.AuthMember;
+import back.global.config.security.userDetails.AuthUser;
 import back.global.dto.TokenDto;
 
 import io.jsonwebtoken.*;
@@ -48,9 +48,9 @@ public class JwtProvider {
         return expiration;
     }
 
-    public TokenDto generateTokenDto(AuthMember authMember) {
+    public TokenDto generateTokenDto(AuthUser authUser) {
         // 권한들 가져오기
-        String authorities = authMember.getAuthorities().stream()
+        String authorities = authUser.getAuthorities().stream()
                 .map(GrantedAuthority::getAuthority)
                 .collect(Collectors.joining(","));
 
@@ -58,12 +58,12 @@ public class JwtProvider {
         Date refreshTokenExpiresIn = getTokenExpiration(REFRESH_TOKEN_EXPIRE_TIME);
 
         Map<String, Object> claims = new HashMap<>();
-        claims.put("id", authMember.getMemberId());
-        claims.put("roles", authMember.getAuthorities());
+        claims.put("id", authUser.getUserId());
+        claims.put("roles", authUser.getAuthorities());
 
         // Access Token 생성
         String accessToken = Jwts.builder()
-                .setSubject(authMember.getUserId())                  // payload "sub": "name"
+                .setSubject(authUser.getUserId())                  // payload "sub": "name"
                 .setClaims(claims)      // payload "auth": "ROLE_USER"
                 .setExpiration(accessTokenExpiresIn)                   // payload "exp": 1516239022 (예시)
                 .signWith(key, SignatureAlgorithm.HS512)          // header "alg": "HS512"
@@ -71,7 +71,7 @@ public class JwtProvider {
 
         // Refresh Token 생성
         String refreshToken = Jwts.builder()
-                .setSubject(authMember.getMemberId().toString())
+                .setSubject(authUser.getUserId().toString())
                 .setExpiration(refreshTokenExpiresIn)
                 .signWith(key, SignatureAlgorithm.HS512)
                 .compact();
@@ -96,7 +96,7 @@ public class JwtProvider {
         List<String> authorities = Arrays.stream(claims.get("roles").toString().split(","))
                 .collect(Collectors.toList());
 
-        AuthMember auth = AuthMember.of(claims.get("id", Long.class), authorities);
+        AuthUser auth = AuthUser.of(claims.get("id", Long.class), authorities);
         return new UsernamePasswordAuthenticationToken(auth, auth.getPassword(), auth.getAuthorities());
     }
 

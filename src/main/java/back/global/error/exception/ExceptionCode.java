@@ -20,11 +20,11 @@ public enum ExceptionCode {
     TOKEN_UNSUPPORTED(400, "Token Unsupported"),
     TOKEN_ILLEGAL_ARGUMENT(400, "Token Illegal Argument"),
 
-    /* Member */
+    /* USER */
     LOCATION_NOT_CREATED_YET(404,"아직 주거래 동네를 설정하지 않았습니다."),
     UNAUTHORIZIZED_ACCESS(401, "접근 권한 인증이 되지 않았습니다."),
-    MEMBER_HAS_BOOK_ON_LOAN(404, "대여중인 책이 있습니다"),
-    MEMBER_NOT_FOUND(404, "해당 유저를 찾지 못했습니다.");
+    USER_HAS_BOOK_ON_LOAN(404, "대여중인 책이 있습니다"),
+    USER_NOT_FOUND(404, "해당 유저를 찾지 못했습니다.");
 
     private int status;
     private String message;

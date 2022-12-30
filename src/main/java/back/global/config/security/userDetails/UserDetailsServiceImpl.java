@@ -1,7 +1,7 @@
 package back.global.config.security.userDetails;
 
-import back.domain.member.entity.Member;
-import back.domain.member.repository.MemberRepository;
+import back.domain.user.entity.User;
+import back.domain.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -15,19 +15,19 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 public class UserDetailsServiceImpl implements UserDetailsService {
 
-    private final MemberRepository memberRepository;
+    private final UserRepository userRepository;
 
     @Override
     @Transactional
     public UserDetails loadUserByUsername(String userId) throws UsernameNotFoundException {
-        return memberRepository.findByUserId(userId)
+        return userRepository.findByUserId(userId)
                 .map(this::createUserDetails)
                 .orElseThrow(() -> new UsernameNotFoundException("유저 정보가 없습니다."));
     }
 
-    private UserDetails createUserDetails(Member member) {
-        GrantedAuthority grantedAuthority = new SimpleGrantedAuthority(member.getAuthType().toString());
+    private UserDetails createUserDetails(User user) {
+        GrantedAuthority grantedAuthority = new SimpleGrantedAuthority(user.getAuthType().toString());
 
-        return AuthMember.of(member);
+        return AuthUser.of(user);
     }
 }

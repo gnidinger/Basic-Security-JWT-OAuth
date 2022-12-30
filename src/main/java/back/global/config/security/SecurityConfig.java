@@ -4,10 +4,10 @@ import back.domain.refreshToken.repository.RefreshTokenRepository;
 import back.global.config.security.filter.JwtAuthenticationFilter;
 import back.global.config.security.filter.JwtProvider;
 import back.global.config.security.filter.JwtVerificationFilter;
-import back.global.config.security.handler.MemberAccessDeniedHandler;
-import back.global.config.security.handler.MemberAuthenticationEntryPoint;
-import back.global.config.security.handler.MemberAuthenticationFailureHandler;
-import back.global.config.security.handler.MemberAuthenticationSuccessHandler;
+import back.global.config.security.handler.UserAccessDeniedHandler;
+import back.global.config.security.handler.UserAuthenticationEntryPoint;
+import back.global.config.security.handler.UserAuthenticationFailureHandler;
+import back.global.config.security.handler.UserAuthenticationSuccessHandler;
 import back.global.config.security.oAuth.OAuth2Service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -49,8 +49,8 @@ public class SecurityConfig {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .exceptionHandling()
-                .authenticationEntryPoint(new MemberAuthenticationEntryPoint())
-                .accessDeniedHandler(new MemberAccessDeniedHandler())
+                .authenticationEntryPoint(new UserAuthenticationEntryPoint())
+                .accessDeniedHandler(new UserAccessDeniedHandler())
                 .and()
                 .apply(new CustomFilterConfigurer())
                 .and()
@@ -60,11 +60,6 @@ public class SecurityConfig {
                 .userInfoEndpoint() // OAuth2 로그인 성공 이후 사용자 정보를 가져올 때 설정 담당
                 .userService(oAuthService);
         return http.build();
-    }
-
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
     }
 
     @Bean
@@ -89,8 +84,8 @@ public class SecurityConfig {
 
             JwtAuthenticationFilter jwtAuthenticationFilter = new JwtAuthenticationFilter(tokenProvider, authenticationManager);
             jwtAuthenticationFilter.setFilterProcessesUrl("/auth/login");
-            jwtAuthenticationFilter.setAuthenticationSuccessHandler(new MemberAuthenticationSuccessHandler(refreshTokenRepository));
-            jwtAuthenticationFilter.setAuthenticationFailureHandler(new MemberAuthenticationFailureHandler());
+            jwtAuthenticationFilter.setAuthenticationSuccessHandler(new UserAuthenticationSuccessHandler(refreshTokenRepository));
+            jwtAuthenticationFilter.setAuthenticationFailureHandler(new UserAuthenticationFailureHandler());
 
             JwtVerificationFilter jwtVerificationFilter = new JwtVerificationFilter(tokenProvider);
 

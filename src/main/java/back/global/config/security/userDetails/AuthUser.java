@@ -1,6 +1,6 @@
 package back.global.config.security.userDetails;
 
-import back.domain.member.entity.Member;
+import back.domain.user.entity.User;
 import lombok.Getter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -11,34 +11,34 @@ import java.util.Collection;
 import java.util.List;
 
 @Getter
-public class AuthMember extends Member implements UserDetails {
+public class AuthUser extends User implements UserDetails {
 
-    private Long memberId;
+    private Long id;
     private String userId;
     private String password;
     private List<String> roles;
     private String nickname;
 
-    private AuthMember(Member member) {
-        this.memberId = member.getId();
-        this.userId = member.getUserId();
-        this.password = member.getPassword();
-        this.roles = List.of(member.getAuthType().toString());
-        this.nickname = member.getNickname();
+    private AuthUser(User user) {
+        this.id = user.getId();
+        this.userId = user.getUserId();
+        this.password = user.getPassword();
+        this.roles = List.of(user.getAuthType().toString());
+        this.nickname = user.getNickname();
     }
 
-    private AuthMember(Long id, List<String> roles) {
-        this.memberId = id;
+    private AuthUser(Long id, List<String> roles) {
+        this.id = id;
         this.password = "";
         this.roles = roles;
     }
 
-    public static AuthMember of(Member member) {
-        return new AuthMember(member);
+    public static AuthUser of(User user) {
+        return new AuthUser(user);
     }
 
-    public static AuthMember of(Long id, List<String> roles) {
-        return new AuthMember(id, roles);
+    public static AuthUser of(Long id, List<String> roles) {
+        return new AuthUser(id, roles);
     }
 
     @Override

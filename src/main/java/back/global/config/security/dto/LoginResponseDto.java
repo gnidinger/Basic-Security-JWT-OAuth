@@ -1,6 +1,6 @@
 package back.global.config.security.dto;
 
-import back.global.config.security.userDetails.AuthMember;
+import back.global.config.security.userDetails.AuthUser;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.*;
 
@@ -23,11 +23,11 @@ public class LoginResponseDto {
         private List<String> roles;
         private String profileImage; // 프로필 이미지
 
-        public static LoginResponseDto.ResponseDto of(AuthMember authMember){
+        public static LoginResponseDto.ResponseDto of(AuthUser authUser){
             return LoginResponseDto.ResponseDto.builder()
-                    .id(authMember.getMemberId())
-                    .userId(authMember.getUserId())
-                    .nickName(authMember.getNickname())
+                    .id(authUser.getUserId())
+                    .userId(authUser.getUserId())
+                    .nickName(authUser.getNickname())
                     .build();
         }
     }

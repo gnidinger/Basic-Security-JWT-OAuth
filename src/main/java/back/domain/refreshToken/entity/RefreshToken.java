@@ -17,7 +17,7 @@ public class RefreshToken extends BaseTimeEntity {
 
     @Id
     @Column(name = "rt_key")
-    // member id 값이 들어감
+    // user id 값이 들어감
     private Long key;
 
     @Column(name = "rt_value")

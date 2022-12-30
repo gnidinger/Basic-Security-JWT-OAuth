@@ -1,15 +1,16 @@
-package back.domain.member.repository;
+package back.domain.user.repository;
 
-import back.domain.member.entity.Member;
+import back.domain.user.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 
 @Repository
-public interface MemberRepository extends JpaRepository<Member, Long> {
+public interface UserRepository extends JpaRepository<User, Long> {
 
-    Optional<Member> findByUserId(String userId);
+    Optional<User> findByUserId(String userId);
+    User findByNickname(String nickname);
     boolean existsByUserId(String userId);
     boolean existsByNickname(String nickname);
 }

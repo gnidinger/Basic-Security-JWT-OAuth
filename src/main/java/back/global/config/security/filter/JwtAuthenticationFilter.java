@@ -2,7 +2,7 @@ package back.global.config.security.filter;
 
 import back.global.config.security.dto.LoginRequestDto;
 import back.global.config.security.dto.LoginResponseDto;
-import back.global.config.security.userDetails.AuthMember;
+import back.global.config.security.userDetails.AuthUser;
 import back.global.dto.TokenDto;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
@@ -45,8 +45,8 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
                                             HttpServletResponse response,
                                             FilterChain chain,
                                             Authentication authResult) throws IOException, ServletException {
-        AuthMember authMember = (AuthMember) authResult.getPrincipal();
-        TokenDto tokenDto = jwtProvider.generateTokenDto(authMember);
+        AuthUser authUser = (AuthUser) authResult.getPrincipal();
+        TokenDto tokenDto = jwtProvider.generateTokenDto(authUser);
 
         String refreshToken = tokenDto.getRefreshToken();
 
@@ -62,12 +62,12 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         response.setHeader("Authorization", "Bearer " + tokenDto.getAccessToken());
 
         ObjectMapper objectMapper = new ObjectMapper();
-        String memberLoginResponse = objectMapper.writeValueAsString(
-                LoginResponseDto.ResponseDto.of(authMember)
+        String userLoginResponse = objectMapper.writeValueAsString(
+                LoginResponseDto.ResponseDto.of(authUser)
         );
-        // response body에 member의 id, username을 담아서 보내준다.
+        // response body에 user의 id, username을 담아서 보내준다.
         response.getWriter().write(
-                memberLoginResponse
+                userLoginResponse
         );
 
         this.getSuccessHandler().onAuthenticationSuccess(request, response, authResult);
