@@ -25,7 +25,7 @@ public class LoginResponseDto {
 
         public static LoginResponseDto.ResponseDto of(AuthUser authUser){
             return LoginResponseDto.ResponseDto.builder()
-                    .id(authUser.getUserId())
+                    .id(authUser.getId())
                     .userId(authUser.getUserId())
                     .nickName(authUser.getNickname())
                     .build();

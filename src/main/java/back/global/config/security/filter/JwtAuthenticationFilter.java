@@ -1,5 +1,6 @@
 package back.global.config.security.filter;
 
+import back.global.config.security.cookieManager.CookieManager;
 import back.global.config.security.dto.LoginRequestDto;
 import back.global.config.security.dto.LoginResponseDto;
 import back.global.config.security.userDetails.AuthUser;
@@ -25,6 +26,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 
     private final JwtProvider jwtProvider;
     private final AuthenticationManager authenticationManager;
+    private final CookieManager cookieManager;
 
     @SneakyThrows
     @Override
@@ -50,13 +52,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 
         String refreshToken = tokenDto.getRefreshToken();
 
-        ResponseCookie cookie = ResponseCookie.from("refreshToken", refreshToken)
-                .maxAge(7 * 24 * 60 * 60)
-                .path("/")
-                .secure(true)
-                .sameSite("None")
-                .httpOnly(true)
-                .build();
+        ResponseCookie cookie = cookieManager.createCookie("refreshToken", refreshToken);
 
         response.setHeader("Set-Cookie", cookie.toString());
         response.setHeader("Authorization", "Bearer " + tokenDto.getAccessToken());

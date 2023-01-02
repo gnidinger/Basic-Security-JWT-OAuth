@@ -12,9 +12,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Map;
 
-@RequestMapping()
+@RequestMapping
 @RestController
-@Transactional
 @RequiredArgsConstructor
 public class UserController {
 

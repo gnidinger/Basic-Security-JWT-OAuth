@@ -1,6 +1,6 @@
-package back.domain.refreshToken.entity;
+package back.global.config.security.refreshToken.entity;
 
-import back.domain.model.BaseTimeEntity;
+import back.global.BaseTimeEntity;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;

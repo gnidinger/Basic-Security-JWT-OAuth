@@ -1,4 +1,4 @@
-package back.domain.refreshToken.exception;
+package back.global.config.security.refreshToken.exception;
 
 import back.global.error.exception.BusinessException;
 import back.global.error.exception.ExceptionCode;

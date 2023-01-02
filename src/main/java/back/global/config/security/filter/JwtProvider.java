@@ -1,6 +1,6 @@
 package back.global.config.security.filter;
 
-import back.domain.refreshToken.exception.*;
+import back.global.config.security.refreshToken.exception.*;
 import back.global.config.security.userDetails.AuthUser;
 import back.global.dto.TokenDto;
 

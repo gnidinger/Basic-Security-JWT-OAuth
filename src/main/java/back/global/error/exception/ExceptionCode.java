@@ -5,14 +5,14 @@ import lombok.Getter;
 @Getter
 public enum ExceptionCode {
 
-    INVALID_INPUT_VALUE(400, "잘못된 입력입니다."),
-    ENTITY_NOT_FOUND(400, "엔티티를 찾을 수 없습니다."),
-    INTERNAL_SERVER_ERROR(500, "서버 내부 오류"),
-    HANDLE_ACCESS_DENIED(403, "접근이 거부 되었습니다."),
-    METHOD_NOT_ALLOWED(405, "허용하지 않는 HTTP 메소드입니다."),
+    INVALID_INPUT_VALUE(400, "Invalid Input Value"),
+    ENTITY_NOT_FOUND(400, "Entity Not Found"),
+    INTERNAL_SERVER_ERROR(500, "Internal Server Error"),
+    HANDLE_ACCESS_DENIED(403, "Access Denied"),
+    METHOD_NOT_ALLOWED(405, "Method Not Allowed"),
 
     /* JWT */
-    ACCESS_TOKEN_NOT_FOUND(404,"액세스토큰을 찾을 수 없습니다."),
+    ACCESS_TOKEN_NOT_FOUND(404,"Access Token Not Found"),
     TOKEN_EXPIRED(400, "Token Expired"),
     TOKEN_INVALID(400, "Token Invalid"),
     TOKEN_SIGNATURE_INVALID(400, "Token Signature Invalid"),
@@ -21,10 +21,11 @@ public enum ExceptionCode {
     TOKEN_ILLEGAL_ARGUMENT(400, "Token Illegal Argument"),
 
     /* USER */
-    LOCATION_NOT_CREATED_YET(404,"아직 주거래 동네를 설정하지 않았습니다."),
-    UNAUTHORIZIZED_ACCESS(401, "접근 권한 인증이 되지 않았습니다."),
-    USER_HAS_BOOK_ON_LOAN(404, "대여중인 책이 있습니다"),
-    USER_NOT_FOUND(404, "해당 유저를 찾지 못했습니다.");
+    USER_NOT_FOUND(404, "User Not Found"),
+    NICKNAME_EXISTS(409, "Nickname Exists"),
+    PASSWORD_CANNOT_CHANGE(403, "Cannot Use The Same Password"),
+    UNAUTHORIZED(401, "Unauthorized"), // 인증이 필요한 상태
+    FORBIDDEN(403, "Forbidden"); // 인증은 되었으나 권한이 없는 상태
 
     private int status;
     private String message;

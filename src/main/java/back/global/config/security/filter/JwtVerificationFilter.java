@@ -59,7 +59,7 @@ public class JwtVerificationFilter extends OncePerRequestFilter {
             }
         }
     }
-    // Request Header 에서 토큰 정보를 꺼내오는 메소드
+    // Request Header 에서 토큰 정보를 꺼내오는 메서드
     private String resolveToken(HttpServletRequest request) {
         String bearerToken = request.getHeader(AUTHORIZATION_HEADER);
         if (StringUtils.hasText(bearerToken) && bearerToken.startsWith(BEARER_PREFIX)) {

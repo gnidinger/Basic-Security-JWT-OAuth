@@ -1,4 +1,4 @@
-package back.domain.user.entity;
+package back.domain.user.entity.enums;
 
 public enum AuthType {
 

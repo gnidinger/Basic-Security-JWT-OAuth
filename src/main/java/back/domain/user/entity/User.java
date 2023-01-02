@@ -1,17 +1,19 @@
 package back.domain.user.entity;
 
-import back.domain.model.BaseTimeEntity;
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import back.domain.user.entity.enums.AgeType;
+import back.domain.user.entity.enums.AuthType;
+import back.domain.user.entity.enums.GenderType;
+import back.global.BaseTimeEntity;
+import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
 
 @Entity
 @Getter
+@Builder
 @Table(name = "users")
+@AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class User extends BaseTimeEntity {
 
@@ -32,22 +34,24 @@ public class User extends BaseTimeEntity {
 
     @Column(name = "nickname", nullable = false)
     private String nickname;
+    @Column(name = "profile_image")
+    private String profileImage; // 프로필 이미지 경로
+
+    @Enumerated(EnumType.STRING)
+    private GenderType gender;
+
+    @Enumerated(EnumType.STRING)
+    private AgeType ageType;
 
     @Enumerated(EnumType.STRING)
     private AuthType authType;
 
     private String provider;    // oauth2를 이용할 경우 어떤 플랫폼을 이용하는지
-    private String providerId;  // oauth2를 이용할 경우 아이디값
+
+    private String providerId;  // oauth2를 이용할 경우 아이디 값
 
     private String email; // OAuth의 경우 이메일이 존재할 가능성 있음
 
-    @Builder
-    public User(String userId, String password, String nickname)  {
-        this.userId = userId;
-        this.password = password;
-        this.nickname = nickname;
-        this.authType = AuthType.ROLE_USER;
-    }
 
     @Builder(builderClassName = "OAuth2Register", builderMethodName = "oauth2Register")
     public User(String nickname, String password, String email, AuthType authType, String provider, String providerId) {

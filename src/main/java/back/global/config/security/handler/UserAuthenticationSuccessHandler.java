@@ -1,7 +1,7 @@
 package back.global.config.security.handler;
 
-import back.domain.refreshToken.entity.RefreshToken;
-import back.domain.refreshToken.repository.RefreshTokenRepository;
+import back.global.config.security.refreshToken.entity.RefreshToken;
+import back.global.config.security.refreshToken.repository.RefreshTokenRepository;
 import back.global.config.security.userDetails.AuthUser;
 import io.jsonwebtoken.io.IOException;
 import lombok.extern.slf4j.Slf4j;
@@ -31,7 +31,7 @@ public class UserAuthenticationSuccessHandler implements AuthenticationSuccessHa
 
         // RefreshToken 저장
         RefreshToken refresh = RefreshToken.builder()
-                .key(authUser.getUserId())
+                .key(authUser.getId())
                 .value(refreshToken)
                 .build();
 

@@ -1,4 +1,4 @@
-package back.domain.model;
+package back.global;
 
 import lombok.Getter;
 import org.springframework.data.annotation.CreatedDate;

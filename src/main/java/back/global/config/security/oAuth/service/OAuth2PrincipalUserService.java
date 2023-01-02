@@ -1,6 +1,6 @@
 package back.global.config.security.oAuth.service;
 
-import back.domain.user.entity.AuthType;
+import back.domain.user.entity.enums.AuthType;
 import back.domain.user.entity.User;
 import back.domain.user.repository.UserRepository;
 import back.global.config.security.oAuth.userInfo.KakaoUserInfo;
@@ -18,7 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.UUID;
 
-import static back.domain.user.entity.AuthType.ROLE_USER;
+import static back.domain.user.entity.enums.AuthType.ROLE_USER;
 
 @Service
 @Transactional
